@@ -11,10 +11,13 @@
     />
     <div v-else class="text-center">
       <VBtn
-        :text="element.data.label"
+        :icon="!element.data.label"
         color="primary-darken-2"
-        prepend-icon="mdi-file-download"
-      />
+        @click="downloadFile"
+      >
+        <VIcon :start="!!element.data.label" icon="mdi-file-download" />
+        {{ element.data.label }}
+      </VBtn>
     </div>
   </div>
 </template>
@@ -30,6 +33,11 @@ defineProps<{
   isDisabled: boolean;
 }>();
 defineEmits(['save']);
+
+const downloadFile = () => {
+  // TODO: Implement file download logic
+  // Consider exporting and reusing useUpload fromm core-components
+};
 </script>
 
 <style lang="scss" scoped>
