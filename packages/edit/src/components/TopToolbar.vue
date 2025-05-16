@@ -20,13 +20,24 @@ import type { Element } from '@tailor-cms/ce-file-manifest';
 const props = defineProps<{ element: Element }>();
 const emit = defineEmits(['save']);
 
-const save = ({ url, publicUrl }: { url: string; publicUrl: string }) => {
-  const assets = { url };
-  const elementData = Object.assign(cloneDeep(props.element.data), {
+const save = ({
+  url,
+  publicUrl,
+  name,
+  size,
+}: {
+  url: string;
+  publicUrl: string;
+  name: string;
+  size: number;
+}) => {
+  const payload = Object.assign(cloneDeep(props.element.data), {
     url: publicUrl,
-    assets,
+    name,
+    size,
+    assets: { url },
   });
-  emit('save', elementData);
+  emit('save', payload);
 };
 </script>
 

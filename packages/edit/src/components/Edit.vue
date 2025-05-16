@@ -13,6 +13,7 @@
       <VBtn
         :icon="!element.data.label"
         color="primary-darken-2"
+        variant="tonal"
         @click="downloadFile"
       >
         <VIcon :start="!!element.data.label" icon="mdi-file-download" />
@@ -27,16 +28,26 @@ import type { Element } from '@tailor-cms/ce-file-manifest';
 import { ElementPlaceholder } from '@tailor-cms/core-components';
 import manifest from '@tailor-cms/ce-file-manifest';
 
-defineProps<{
+const props = defineProps<{
   element: Element;
   isFocused: boolean;
   isDisabled: boolean;
 }>();
-defineEmits(['save']);
 
-const downloadFile = () => {
-  // TODO: Implement file download logic
-  // Consider exporting and reusing useUpload fromm core-components
+const downloadFile = async () => {
+  const { element } = props;
+  const { url } = element.data || {};
+  if (!url) return;
+  const res = await fetch(url);
+  const blob = await res.blob();
+  const blobUrl = await URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = blobUrl;
+  const filename = element.data.name || element.data.label || 'untitled';
+  link.setAttribute('download', filename);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 };
 </script>
 
