@@ -5,15 +5,19 @@ import type {
 } from './interfaces';
 
 // Element unique id within the target system (e.g. Tailor)
-export const type = 'ORG_CUSTOM_ELEMENT';
+export const type = 'FILE';
 
 // Display name (e.g. shown to the author)
-export const name = 'Custom element';
+export const name = 'File';
 
 // Function which inits element state (data property on the Content Element
 // entity)
-// e.g. for simple counter component:
-export const initState: DataInitializer = (): ElementData => ({ count: 0 });
+export const initState: DataInitializer = (): ElementData => ({
+  url: null,
+  name: null,
+  label: null,
+  assets: {},
+});
 
 // Can be loaded from package.json
 export const version = '1.0';
@@ -21,17 +25,10 @@ export const version = '1.0';
 // UI configuration for Tailor CMS
 const ui = {
   // Display icon, https://pictogrammers.com/library/mdi/
-  icon: 'mdi-cube',
+  icon: 'mdi-file',
   // Does element support only full width or can be used within layouts
   // (e.g. 50/50 layout)
-  forceFullWidth: true,
-};
-
-export const mocks = {
-  displayContexts: [
-    { name: 'Test preset 1', data: { state: 'I have a value' } },
-    { name: 'Test preset 2', data: { state: 'I have a different value' } },
-  ],
+  forceFullWidth: false,
 };
 
 const manifest: ElementManifest = {
@@ -41,7 +38,6 @@ const manifest: ElementManifest = {
   ssr: false,
   initState,
   ui,
-  mocks,
 };
 
 export default manifest;

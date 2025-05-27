@@ -1,42 +1,58 @@
 <template>
-  <div class="tce-container">
-    <div>This is Edit version of the content element id: {{ element?.id }}</div>
-    <div class="mt-6 mb-2">
-      Counter:
-      <span class="font-weight-bold">{{ element.data.count }}</span>
+  <div class="tce-file">
+    <ElementPlaceholder
+      v-if="!element.data.url"
+      :icon="manifest.ui.icon"
+      :is-disabled="isDisabled"
+      :is-focused="isFocused"
+      :name="`${manifest.name} component`"
+      active-icon="mdi-arrow-up"
+      active-placeholder="Use toolbar to upload the file"
+    />
+    <div v-else class="text-center">
+      <VBtn
+        :icon="!element.data.label"
+        color="primary-darken-2"
+        variant="tonal"
+        @click="downloadFile"
+      >
+        <VIcon :start="!!element.data.label" icon="mdi-file-download" />
+        {{ element.data.label }}
+      </VBtn>
     </div>
-    <button @click="increment">Increment</button>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, defineProps } from 'vue';
-import { Element } from '@tailor-cms/ce-file-manifest';
+import type { Element } from '@tailor-cms/ce-file-manifest';
+import { ElementPlaceholder } from '@tailor-cms/core-components';
+import manifest from '@tailor-cms/ce-file-manifest';
 
-const emit = defineEmits(['save']);
-const props = defineProps<{ element: Element; isFocused: boolean }>();
+const props = defineProps<{
+  element: Element;
+  isFocused: boolean;
+  isDisabled: boolean;
+}>();
 
-const increment = () => {
-  const { data } = props.element;
-  const count = data.count + 1;
-  emit('save', { ...data, count });
+const downloadFile = async () => {
+  const { element } = props;
+  const { url } = element.data || {};
+  if (!url) return;
+  const res = await fetch(url);
+  const blob = await res.blob();
+  const blobUrl = await URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = blobUrl;
+  const filename = element.data.name || element.data.label || 'untitled';
+  link.setAttribute('download', filename);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 };
 </script>
 
-<style scoped>
-.tce-container {
-  background-color: transparent;
-  margin-top: 1rem;
-  padding: 1.5rem;
-  border: 2px dashed #888;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1rem;
-}
-
-button {
-  margin: 1rem 0 0 0;
-  padding: 0.25rem 1rem;
-  background-color: #eee;
-  border: 1px solid #444;
+<style lang="scss" scoped>
+.tce-file {
+  text-align: left;
 }
 </style>

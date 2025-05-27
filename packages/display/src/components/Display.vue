@@ -1,34 +1,45 @@
 <template>
-  <div class="tce-root">
-    <p>This is the Display version of the content element id: {{ id }}</p>
-    <div class="mt-6 mb-2">
-      Counter:
-      <span class="font-weight-bold">{{ data.count }}</span>
-    </div>
-    <v-btn class="my-6" @click="submit">Update user state</v-btn>
-    <div>
-      <div class="mb-1 text-subtitle-2">User state:</div>
-      <pre class="text-body-2">{{ userState }}</pre>
-    </div>
+  <div class="tce-file-root">
+    <VBtn color="primary-darken-2" variant="tonal" @click="downloadFile">
+      <VIcon icon="mdi-file-download" start />
+      {{ label }}
+    </VBtn>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { ElementData } from '@tailor-cms/ce-file-manifest';
 
 const props = defineProps<{ id: number; data: ElementData; userState: any }>();
-const emit = defineEmits(['interaction']);
 
-const submit = () => emit('interaction', { id: props.id });
+const label = computed(() => {
+  const { data } = props;
+  return data.label || 'Download file';
+});
+
+const downloadFile = async () => {
+  const { data } = props;
+  const { url } = data;
+  if (!url) return;
+  const res = await fetch(url);
+  const blob = await res.blob();
+  const blobUrl = await URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = blobUrl;
+  const filename = data.name || data.label || 'untitled';
+  link.setAttribute('download', filename);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 </script>
 
 <style scoped>
-.tce-root {
+.tce-file-root {
   background-color: transparent;
-  margin-top: 1rem;
-  padding: 1.25rem;
-  border: 2px dashed #888;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1rem;
+  margin: 1rem;
+  padding: 1.5rem;
+  text-align: center;
 }
 </style>
