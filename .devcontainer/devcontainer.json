@@ -4,21 +4,21 @@
 	"features": {
 		"ghcr.io/devcontainers-extra/features/pnpm:2": {}
 	},
-	"forwardPorts": [8001, 8002, 8003, 8004],
+	"forwardPorts": [8010, 8020, 8030, 8080],
 	"portsAttributes": {
-		"8001": {
+		"8080": {
 			"label": "Content Element Kit preview",
 			"onAutoForward": "notify"
 		},
-		"8002": {
+		"8010": {
 			"label": "Edit runtime",
 			"onAutoForward": "silent"
 		},
-		"8003": {
+		"8020": {
 			"label": "Display runtime",
 			"onAutoForward": "silent"
 		},
-		"8004": {
+		"8030": {
 			"label": "Server runtime",
 			"onAutoForward": "silent"
 		}
