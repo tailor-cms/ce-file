@@ -24,7 +24,7 @@
 		}
 	},
 	"postCreateCommand": "pnpm i",
-	"postStartCommand": "nohup bash -c 'pnpm dev &'",
+	// "postStartCommand": "nohup bash -c 'pnpm dev &'",
 	"customizations": {
 		"vscode": {
 			"extensions": [
