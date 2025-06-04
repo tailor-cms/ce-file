@@ -5,25 +5,6 @@
 		"ghcr.io/devcontainers-extra/features/pnpm:2": {}
 	},
 	"appPort": [8010, 8020, 8030, 8080],
-	"forwardPorts": [8010, 8020, 8030, 8080],
-	"portsAttributes": {
-		"8080": {
-			"label": "Content Element Kit preview",
-			"onAutoForward": "notify"
-		},
-		"8010": {
-			"label": "Edit runtime",
-			"onAutoForward": "silent"
-		},
-		"8020": {
-			"label": "Display runtime",
-			"onAutoForward": "silent"
-		},
-		"8030": {
-			"label": "Server runtime",
-			"onAutoForward": "silent"
-		}
-	},
 	"postCreateCommand": "pnpm i",
 	// "postStartCommand": "nohup bash -c 'pnpm dev &'",
 	"customizations": {
