@@ -47,6 +47,9 @@
 				"Vue.volar",
 				"GitHub.copilot"
 			]
+		},
+		"settings": {
+			"workbench.colorTheme": "One Dark Pro Darker"
 		}
 	}
 }
