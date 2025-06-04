@@ -5,6 +5,7 @@
     "ghcr.io/devcontainers-extra/features/pnpm:2": {},
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
+  "forwardPorts": [8080, 8010, 8020, 8030],
   "portsAttributes": {
     "8080": {
       "label": "Content Element Kit preview",
@@ -23,7 +24,7 @@
       "onAutoForward": "silent"
     }
   },
-  "postCreateCommand": "pnpm i",
+  "postCreateCommand": "pnpm i && pnpm build",
   "postStartCommand": "nohup bash -c 'pnpm dev &'",
   "customizations": {
     "vscode": {
