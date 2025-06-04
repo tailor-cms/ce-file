@@ -8,19 +8,23 @@
 	"portsAttributes": {
 		"8080": {
 			"label": "Content Element Kit preview",
-			"onAutoForward": "notify"
+			"onAutoForward": "notify",
+			"visibility": "public"
 		},
 		"8010": {
 			"label": "Edit runtime",
-			"onAutoForward": "silent"
+			"onAutoForward": "silent",
+			"visibility": "public"
 		},
 		"8020": {
 			"label": "Display runtime",
-			"onAutoForward": "silent"
+			"onAutoForward": "silent",
+			"visibility": "public"
 		},
 		"8030": {
 			"label": "Server runtime",
-			"onAutoForward": "silent"
+			"onAutoForward": "silent",
+			"visibility": "public"
 		}
 	},
 	"postCreateCommand": "pnpm i",
