@@ -7,6 +7,7 @@
   "private": true,
   "scripts": {
     "dev": "pnpm boot:cek",
+    "cs:dev": ".devcontainer/setup.sh & pnpm dev",
     "boot:cek": "cd ./node_modules/@tailor-cms/tce-boot && pnpm start --default-display",
     "build": "pnpm -r run build",
     "lint": "pnpm -r run lint",
