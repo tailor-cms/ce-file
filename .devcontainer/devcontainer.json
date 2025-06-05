@@ -40,7 +40,7 @@
         "oneDarkPro.editorFontLigatures": true,
         "oneDarkPro.bold": true,
         "oneDarkPro.italic": true,
-        "editor.fontSize": 21,
+        "editor.fontSize": 20,
         "editor.fontFamily": "'Dank Mono', 'Fira Code', monospace",
         "editor.fontLigatures": true
       },
