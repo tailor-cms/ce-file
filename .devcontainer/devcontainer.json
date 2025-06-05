@@ -24,12 +24,26 @@
       "onAutoForward": "silent"
     }
   },
-  "postCreateCommand": "pnpm i && pnpm build",
+  "postCreateCommand": "pnpm install --frozen-lockfile && pnpm build",
   "postAttachCommand": "/bin/bash .devcontainer/setup.sh && pnpm dev",
   "customizations": {
     "vscode": {
+      "settings": {
+        "editor.formatOnSave": true,
+        "eslint.enable": true,
+        "prettier.requireConfig": true,
+        "files.exclude": {
+          "**/.pnpm": true,
+          "**/node_modules": true
+        },
+        "workbench.colorTheme": "One Dark Pro",
+        "oneDarkPro.editorFontLigatures": true,
+        "oneDarkPro.bold": true,
+        "oneDarkPro.italic": true
+      },
       "extensions": [
         "akamud.vscode-theme-onedark",
+        "zhuangtongfa.Material-theme",
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "formulahendry.auto-close-tag",
