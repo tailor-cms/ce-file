@@ -18,8 +18,8 @@ importers:
         specifier: 0.0.2
         version: 0.0.2(@typescript-eslint/eslint-plugin@8.34.0(@typescript-eslint/parser@8.34.0(eslint@9.28.0)(typescript@5.8.3))(eslint@9.28.0)(typescript@5.8.3))(@typescript-eslint/parser@8.34.0(eslint@9.28.0)(typescript@5.8.3))(eslint-config-prettier@10.1.5(eslint@9.28.0))(eslint-config-semistandard@17.0.0(eslint-config-standard@17.1.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.34.0(eslint@9.28.0)(typescript@5.8.3))(eslint@9.28.0))(eslint-plugin-n@17.19.0(eslint@9.28.0)(typescript@5.8.3))(eslint-plugin-promise@7.2.1(eslint@9.28.0))(eslint@9.28.0))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.34.0(eslint@9.28.0)(typescript@5.8.3))(eslint@9.28.0))(eslint-plugin-n@17.19.0(eslint@9.28.0)(typescript@5.8.3))(eslint-plugin-promise@7.2.1(eslint@9.28.0))(eslint@9.28.0))(eslint-config-standard@17.1.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.34.0(eslint@9.28.0)(typescript@5.8.3))(eslint@9.28.0))(eslint-plugin-n@17.19.0(eslint@9.28.0)(typescript@5.8.3))(eslint-plugin-promise@7.2.1(eslint@9.28.0))(eslint@9.28.0))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.34.0(eslint@9.28.0)(typescript@5.8.3))(eslint@9.28.0))(eslint-plugin-n@17.19.0(eslint@9.28.0)(typescript@5.8.3))(eslint-plugin-prettier@5.4.1(eslint-config-prettier@10.1.5(eslint@9.28.0))(eslint@9.28.0)(prettier@3.5.0))(eslint-plugin-promise@7.2.1(eslint@9.28.0))(eslint-plugin-vue@10.2.0(eslint@9.28.0)(vue-eslint-parser@9.4.3(eslint@9.28.0)))(eslint-plugin-vuejs-accessibility@2.4.1(eslint@9.28.0))(eslint@9.28.0)
       '@tailor-cms/tce-boot':
-        specifier: 1.1.0-beta.2
-        version: 1.1.0-beta.2(@types/node@22.15.31)
+        specifier: 1.1.0-beta.3
+        version: 1.1.0-beta.3(@types/node@22.15.31)
       '@types/node':
         specifier: ^22.13.1
         version: 22.15.31
@@ -736,8 +736,8 @@ packages:
       eslint-plugin-vue: '>=9.17.0'
       eslint-plugin-vuejs-accessibility: '>=2.2.0'
 
-  '@tailor-cms/tce-boot@1.1.0-beta.2':
-    resolution: {integrity: sha512-Sr1m2zp8aFGlRUtKyJ1uvvgcRrYuLu3B93uwPoKL1RKWBArPBgaBI3Nj464Mh3ATsUH9VNCHisUiEmtCe1zVPg==}
+  '@tailor-cms/tce-boot@1.1.0-beta.3':
+    resolution: {integrity: sha512-jcn7TpOYzGGA9oEMieRxV4lrSr1llGKsSoMEfG1eTbjMMTJpod4w4zM2uaiWXparsSALbl3LjnEDp89EkB6aCQ==}
 
   '@tailor-cms/tce-display-runtime@1.1.0-beta.1':
     resolution: {integrity: sha512-KFgjOkKCdacurO8DOeqEUS/oWdmz9TsWFkWZ2PPk75W9mNJWMvhYaZvMVkZuFThsHNS3XpBPih7kMD40SsGkFg==}
@@ -748,8 +748,8 @@ packages:
   '@tailor-cms/tce-preview-runtime@1.1.0-beta.1':
     resolution: {integrity: sha512-m/g4Y9zZUEMdVjp0cbG2gnaCGNnG3SUcdzKk0opAqAxKfAlvicd5yHFWbD3KmRMWIeoDBDCyM2IKzPJ3GhOX5g==}
 
-  '@tailor-cms/tce-server-runtime@1.1.0-beta.2':
-    resolution: {integrity: sha512-+17F4LeInHOuGbUN3PeaPbskXIUAG/ecS/gFtvqeLbdVcioQ4ARmHtfpGJLUF7jh0atKES+HOSG/lUJ3COMQvg==}
+  '@tailor-cms/tce-server-runtime@1.1.0-beta.3':
+    resolution: {integrity: sha512-bZ9ZYK9wXC0VttUbU0H3osju+hyjSoaYcL+YLGM69ZBOrR3WFagKcu9/Tg5GK7BZ0bqnoFBypYxatoNcNlhfeg==}
 
   '@tailor-cms/utils@1.0.3':
     resolution: {integrity: sha512-15bdhMuJnHEpfniAIWyzxKsPdYrPjaOOieb0dZOn123QGQLxIWzNuQeNbQs3qe5QISX/aJqa2Z6fV/0enzcQqg==}
@@ -4523,12 +4523,12 @@ snapshots:
       eslint-plugin-vue: 10.2.0(eslint@9.28.0)(vue-eslint-parser@9.4.3(eslint@9.28.0))
       eslint-plugin-vuejs-accessibility: 2.4.1(eslint@9.28.0)
 
-  '@tailor-cms/tce-boot@1.1.0-beta.2(@types/node@22.15.31)':
+  '@tailor-cms/tce-boot@1.1.0-beta.3(@types/node@22.15.31)':
     dependencies:
       '@tailor-cms/tce-display-runtime': 1.1.0-beta.1(@types/node@22.15.31)
       '@tailor-cms/tce-edit-runtime': 1.1.0-beta.1(@types/node@22.15.31)
       '@tailor-cms/tce-preview-runtime': 1.1.0-beta.1(@types/node@22.15.31)
-      '@tailor-cms/tce-server-runtime': 1.1.0-beta.2(@types/node@22.15.31)
+      '@tailor-cms/tce-server-runtime': 1.1.0-beta.3(@types/node@22.15.31)
       boxen: 8.0.1
       concurrently: 9.1.2
       dotenv: 16.5.0
@@ -4670,7 +4670,7 @@ snapshots:
       - webpack-plugin-vuetify
       - yaml
 
-  '@tailor-cms/tce-server-runtime@1.1.0-beta.2(@types/node@22.15.31)':
+  '@tailor-cms/tce-server-runtime@1.1.0-beta.3(@types/node@22.15.31)':
     dependencies:
       '@lukeed/uuid': 2.0.1
       bluebird: 3.7.2
