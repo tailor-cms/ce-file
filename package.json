@@ -6,12 +6,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "concurrently 'pnpm boot:cek' 'pnpm boot:display' -n cek,display-runtime -c blue,cyan",
-    "boot:cek": "cd ./node_modules/@tailor-cms/tce-boot && pnpm start",
-    "boot:display": "export TCE_DISPLAY_DIR=${PWD}/packages/display/dist && cd ./node_modules/@tailor-cms/tce-display-runtime && pnpm dev",
+    "dev": "pnpm boot:cek",
+    "boot:cek": "cd ./node_modules/@tailor-cms/tce-boot && pnpm start --default-display",
     "build": "pnpm -r run build",
-    "lint": "pnpm -r run lint",
-    "lint:fix": "pnpm -r run lint --fix",
+    "lint": "pnpm -r run lint && eslint .",
+    "lint:fix": "pnpm -r run lint --fix && eslint . --fix",
     "test": "pnpm playwright test --config ./test/playwright.config.ts"
   },
   "bin": {
@@ -20,12 +19,12 @@
   "devDependencies": {
     "@changesets/cli": "^2.27.12",
     "@playwright/test": "1.50.1",
-    "@tailor-cms/eslint-config": "0.0.2",
-    "@tailor-cms/tce-boot": "1.0.7",
-    "@tailor-cms/tce-display-runtime": "0.6.13",
+    "@tailor-cms/eslint-config": "0.0.3",
+    "@tailor-cms/tce-boot": "1.1.0",
     "@types/node": "^22.13.1",
     "concurrently": "^9.1.2",
     "dotenv": "^16.4.7",
+    "eslint": "^9.28.0",
     "prettier": "3.5.0",
     "typescript": "^5.7.3"
   },
