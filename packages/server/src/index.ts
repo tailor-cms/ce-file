@@ -32,12 +32,10 @@ export function afterRetrieve(
   return element;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function beforeDisplay(element: Element, context: any) {
   return { ...context, ...USER_STATE };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function onUserInteraction(
   element: Element,
   context: any,
