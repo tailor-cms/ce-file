@@ -9,8 +9,8 @@
     "dev": "pnpm boot:cek",
     "boot:cek": "cd ./node_modules/@tailor-cms/tce-boot && pnpm start --default-display",
     "build": "pnpm -r run build",
-    "lint": "pnpm -r run lint",
-    "lint:fix": "pnpm -r run lint --fix",
+    "lint": "pnpm -r run lint && eslint .",
+    "lint:fix": "pnpm -r run lint --fix && eslint . --fix",
     "test": "pnpm playwright test --config ./test/playwright.config.ts"
   },
   "bin": {
