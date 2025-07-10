@@ -3,7 +3,7 @@
     <ElementPlaceholder
       v-if="!element.data.url"
       :icon="manifest.ui.icon"
-      :is-disabled="isDisabled"
+      :is-disabled="isReadonly"
       :is-focused="isFocused"
       :name="`${manifest.name} component`"
       active-icon="mdi-arrow-up"
@@ -30,8 +30,9 @@ import manifest from '@tailor-cms/ce-file-manifest';
 
 const props = defineProps<{
   element: Element;
+  isDragged: boolean;
   isFocused: boolean;
-  isDisabled: boolean;
+  isReadonly: boolean;
 }>();
 
 const downloadFile = async () => {

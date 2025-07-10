@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { defineEmits, defineProps } from 'vue';
 import { AssetInput } from '@tailor-cms/core-components';
-import cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep } from 'lodash-es';
 import type { Element } from '@tailor-cms/ce-file-manifest';
 
 const props = defineProps<{ element: Element }>();

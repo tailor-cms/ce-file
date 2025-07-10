@@ -9,17 +9,17 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { ElementData } from '@tailor-cms/ce-file-manifest';
+import { Element } from '@tailor-cms/ce-file-manifest';
 
-const props = defineProps<{ id: number; data: ElementData; userState: any }>();
+const props = defineProps<{ element: Element; userState: any }>();
 
 const label = computed(() => {
-  const { data } = props;
+  const { data } = props.element;
   return data.label || 'Download file';
 });
 
 const downloadFile = async () => {
-  const { data } = props;
+  const { data } = props.element;
   const { url } = data;
   if (!url) return;
   const res = await fetch(url);
