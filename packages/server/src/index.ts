@@ -39,8 +39,8 @@ const serverModule: ServerModule<Element> = {
   type,
   initState,
   hookMap,
-  onUserInteraction,
   beforeDisplay,
+  onUserInteraction,
 };
 
 export default serverModule;
