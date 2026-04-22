@@ -22,6 +22,7 @@ File content element with upload and download support.
 
 - Renders a download button
 - Click to download the file using the stored filename
+- Emits `interaction` event with `{ downloadedAt }` on download
 
 ## Development
 
