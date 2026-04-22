@@ -1,24 +1,34 @@
-# ce-file
+# File
 
-Tailor file content element component.
+File content element with upload and download support.
+
+**Type:** `FILE`
+
+## Data
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `url` | `string \| null` | Public file URL |
+| `name` | `string \| null` | Original filename |
+| `label` | `string \| null` | Download button label |
+
+## Edit
+
+- Upload button in top toolbar (all extensions) with URL source support
+- Label field in side toolbar
+- Preview renders a download button
+
+## Display
+
+- Renders a download button
+- Click to download the file using the stored filename
 
 ## Development
 
-Dev server:
-
 ```sh
-pnpm dev
-```
-
-Lint
-
-```sh
+pnpm dev     # Preview :8080 | Edit :8010 | Display :8020 | Server :8030
+pnpm build
 pnpm lint
-```
-
-Test
-
-```sh
 pnpm test
 ```
 

@@ -1,43 +1,37 @@
 <template>
   <div class="d-flex align-center justify-center">
-    <AssetInput
-      :extensions="[]"
-      :public-url="element.data.url"
-      :url="element.data.assets.url"
+    <TailorFileInput
+      :allowed-extensions="EXTENSIONS"
+      :file-key="element.data.assets?.url"
       class="mx-auto"
-      upload-label="Upload file"
-      @input="save"
+      allow-url-source
+      @delete="onDelete"
+      @input="onInput"
+      @upload="onUpload"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps } from 'vue';
-import { AssetInput } from '@tailor-cms/core-components';
-import { cloneDeep } from 'lodash-es';
-import type { Element } from '@tailor-cms/ce-file-manifest';
+import type { Element, ElementData } from '@tailor-cms/ce-file-manifest';
+
+const EXTENSIONS: string[] = [];
 
 const props = defineProps<{ element: Element }>();
-const emit = defineEmits(['save']);
+const emit = defineEmits<{ save: [data: ElementData] }>();
 
-const save = ({
-  url,
-  publicUrl,
-  name,
-  size,
-}: {
-  url: string;
-  publicUrl: string;
-  name: string;
-  size: number;
-}) => {
-  const payload = Object.assign(cloneDeep(props.element.data), {
-    url: publicUrl,
-    name,
-    size,
-    assets: { url },
-  });
-  emit('save', payload);
+const onUpload = ({ url, publicUrl, name }: Record<string, any>) => {
+  const assets = { url };
+  emit('save', { ...props.element.data, url: publicUrl, name, assets });
+};
+
+const onInput = (payload: Record<string, any> | null) => {
+  if (!payload) return;
+  emit('save', { ...props.element.data, url: payload.publicUrl });
+};
+
+const onDelete = () => {
+  emit('save', { ...props.element.data, url: null, assets: {} });
 };
 </script>
 

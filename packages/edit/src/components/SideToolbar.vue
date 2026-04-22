@@ -11,11 +11,11 @@
 </template>
 
 <script setup lang="ts">
-import type { Element } from '@tailor-cms/ce-file-manifest';
+import type { Element, ElementData } from '@tailor-cms/ce-file-manifest';
 import { ref } from 'vue';
 
 const props = defineProps<{ element: Element }>();
-const emit = defineEmits(['save']);
+const emit = defineEmits<{ save: [data: ElementData] }>();
 
 const label = ref(props.element.data.label || '');
 

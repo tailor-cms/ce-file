@@ -1,7 +1,11 @@
 <template>
   <div class="tce-file-root">
-    <VBtn color="primary-darken-2" variant="tonal" @click="downloadFile">
-      <VIcon icon="mdi-file-download" start />
+    <VBtn
+      :color="downloaded ? 'success' : 'primary'"
+      :prepend-icon="downloaded ? 'mdi-check' : 'mdi-file-download'"
+      variant="tonal"
+      @click="downloadFile"
+    >
       {{ label }}
     </VBtn>
   </div>
@@ -9,9 +13,12 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { Element } from '@tailor-cms/ce-file-manifest';
+import type { Element } from '@tailor-cms/ce-file-manifest';
 
 const props = defineProps<{ element: Element; userState: any }>();
+const emit = defineEmits<{ interaction: [data: { downloadedAt: number }] }>();
+
+const downloaded = computed(() => Boolean(props.userState?.downloadedAt));
 
 const label = computed(() => {
   const { data } = props.element;
@@ -32,12 +39,13 @@ const downloadFile = async () => {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+  emit('interaction', { downloadedAt: Date.now() });
 };
 </script>
 
 <style scoped>
 .tce-file-root {
-  background-color: transparent;
+  background: transparent;
   margin: 1rem;
   padding: 1.5rem;
   text-align: center;
