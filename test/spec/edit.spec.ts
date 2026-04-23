@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test';
 import { elementClient } from '@tailor-cms/cek-e2e';
 
-import { FILE } from '../fixtures';
 import { Edit } from '../pom';
+import { FILE } from '../fixtures';
 
 const ELEMENT_ID = 'test-file-edit';
 const FILE_URL = 'https://example.com/test.txt';
