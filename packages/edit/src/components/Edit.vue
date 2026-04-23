@@ -11,21 +11,13 @@
     />
     <div v-else class="text-center">
       <VBtn
-        v-if="element.data.label"
         color="primary-darken-2"
         prepend-icon="mdi-file-download"
         variant="tonal"
         @click="downloadFile"
       >
-        {{ element.data.label }}
+        {{ element.data.label || 'Download file' }}
       </VBtn>
-      <VBtn
-        v-else
-        color="primary-darken-2"
-        icon="mdi-file-download"
-        variant="tonal"
-        @click="downloadFile"
-      />
     </div>
   </div>
 </template>
