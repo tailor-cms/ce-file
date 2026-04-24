@@ -99,7 +99,3 @@ test.describe('Readonly mode', () => {
     await expect(edit.downloadBtn).toBeVisible();
   });
 });
-
-test.afterAll(async () => {
-  await elementClient.reset(ELEMENT_ID);
-});

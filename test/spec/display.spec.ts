@@ -8,6 +8,7 @@ const FILE_URL = 'https://example.com/test.txt';
 
 test.beforeEach(async ({ page }) => {
   await elementClient.reset(ELEMENT_ID);
+  await elementClient.resetState(ELEMENT_ID);
   await page.route(FILE_URL, (route) =>
     route.fulfill({ status: 200, body: 'test' }),
   );
@@ -61,8 +62,4 @@ test.describe('Falls back to generic label when none provided', () => {
     const display = new Display(page);
     await expect(display.downloadBtn).toContainText('Download file');
   });
-});
-
-test.afterAll(async () => {
-  await elementClient.reset(ELEMENT_ID);
 });
