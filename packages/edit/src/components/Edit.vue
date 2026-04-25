@@ -1,23 +1,22 @@
 <template>
   <div class="tce-file">
-    <ElementPlaceholder
+    <TailorElementPlaceholder
       v-if="!element.data.url"
-      :icon="manifest.ui.icon"
       :is-disabled="isReadonly"
       :is-focused="isFocused"
       :name="`${manifest.name} component`"
       active-icon="mdi-arrow-up"
       active-placeholder="Use toolbar to upload the file"
+      icon="mdi-file-upload"
     />
     <div v-else class="text-center">
       <VBtn
-        :icon="!element.data.label"
         color="primary-darken-2"
+        prepend-icon="mdi-file-download"
         variant="tonal"
         @click="downloadFile"
       >
-        <VIcon :start="!!element.data.label" icon="mdi-file-download" />
-        {{ element.data.label }}
+        {{ element.data.label || 'Download file' }}
       </VBtn>
     </div>
   </div>
@@ -25,7 +24,6 @@
 
 <script lang="ts" setup>
 import type { Element } from '@tailor-cms/ce-file-manifest';
-import { ElementPlaceholder } from '@tailor-cms/core-components';
 import manifest from '@tailor-cms/ce-file-manifest';
 
 const props = defineProps<{
