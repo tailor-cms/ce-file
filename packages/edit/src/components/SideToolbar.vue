@@ -12,12 +12,21 @@
 
 <script setup lang="ts">
 import type { Element, ElementData } from '@tailor-cms/ce-file-manifest';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps<{ element: Element }>();
 const emit = defineEmits<{ save: [data: ElementData] }>();
 
 const label = ref(props.element.data.label || '');
+
+watch(
+  () => props.element.data.label,
+  (value) => {
+    const next = value || '';
+    if (next === label.value) return;
+    label.value = next;
+  },
+);
 
 const onFocusChange = (focused: boolean) => {
   if (focused) return;
