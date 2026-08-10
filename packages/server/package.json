@@ -2,6 +2,13 @@
   "name": "@tailor-cms/ce-file-server",
   "description": "Tailor CMS file server component",
   "author": "Studion <info@gostudion.com> (https://github.com/tailor-cms)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tailor-cms/ce-file.git",
+    "directory": "packages/server"
+  },
+  "homepage": "https://github.com/tailor-cms/ce-file#readme",
+  "bugs": "https://github.com/tailor-cms/ce-file/issues",
   "type": "module",
   "version": "2.0.4",
   "exports": {
