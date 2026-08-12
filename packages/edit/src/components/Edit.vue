@@ -11,7 +11,7 @@
     />
     <div v-else class="text-center">
       <VBtn
-        color="primary-darken-2"
+        color="secondary"
         prepend-icon="mdi-file-download"
         variant="tonal"
         @click="downloadFile"
