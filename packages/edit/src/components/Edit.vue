@@ -20,10 +20,11 @@
       @input="save"
       @upload="save"
     >
-      <div class="text-center">
+      <div class="text-center my-3">
         <VBtn
           color="secondary"
-          prepend-icon="mdi-file-download"
+          prepend-icon="mdi-download"
+          size="large"
           variant="tonal"
           @click="downloadFile"
         >
