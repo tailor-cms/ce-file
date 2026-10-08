@@ -69,10 +69,15 @@ const save = (payload: Record<string, any> | null) => {
   if (!payload) return;
   const { url, publicUrl, name } = payload;
   const assets = { url };
-  emit('save', { ...props.element.data, url: publicUrl ?? url, name, assets });
+  emit('save', {
+    ...props.element.data,
+    url: publicUrl ?? url,
+    name: name || null,
+    assets,
+  });
 };
 
 const onDelete = () => {
-  emit('save', { ...props.element.data, url: null, assets: {} });
+  emit('save', { ...props.element.data, url: null, name: null, assets: {} });
 };
 </script>
