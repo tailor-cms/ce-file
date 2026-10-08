@@ -10,7 +10,10 @@ export class Edit extends pom.EditPanel {
   constructor(page: Page) {
     super(page);
     this.placeholder = this.editor.getByText('File component');
-    this.downloadBtn = this.editor.locator('.tce-file').getByRole('button');
+    this.downloadBtn = this.editor
+      .locator('.tce-file')
+      .getByRole('button')
+      .filter({ has: page.locator('.mdi-download') });
     this.labelInput = this.sideToolbar.getByLabel('Label');
     this.fileInput = new pom.FileInput(this.el);
   }

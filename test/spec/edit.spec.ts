@@ -6,6 +6,7 @@ import { FILE } from '../fixtures';
 
 const ELEMENT_ID = 'test-file-edit';
 const FILE_URL = 'https://example.com/test.txt';
+const OTHER_FILE_URL = 'https://example.com/other.txt';
 
 test.beforeEach(async ({ page }) => {
   await elementClient.reset(ELEMENT_ID);
@@ -14,38 +15,31 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('When file is not set', () => {
-  test('Shows placeholder', async ({ page }) => {
+  test('Shows dropzone as empty state', async ({ page }) => {
     const edit = new Edit(page);
-    await expect(edit.placeholder).toBeVisible();
+    await expect(edit.fileInput.dropzone).toBeVisible();
+    await expect(edit.placeholder).not.toBeVisible();
     await expect(edit.downloadBtn).not.toBeVisible();
-  });
-
-  test('Can upload a file', async ({ page }) => {
-    const edit = new Edit(page);
-    await edit.focus();
-    await edit.fileInput.open();
-    await edit.fileInput.upload(FILE);
-    await expect(edit.downloadBtn).toBeVisible();
-    await expect(edit.fileInput.removeBtn).toBeVisible();
   });
 
   test('Can import a file via URL', async ({ page }) => {
     const edit = new Edit(page);
     await edit.focus();
-    await edit.fileInput.open();
+    await edit.fileInput.openUrlFromDropzone();
     await edit.fileInput.importUrl(FILE_URL);
     await expect(edit.downloadBtn).toBeVisible();
+    await expect(edit.fileInput.dropzone).not.toBeVisible();
   });
 
-  test('Returns to empty state after upload and delete', async ({ page }) => {
+  test('Can upload a file via dropzone', async ({ page }) => {
     const edit = new Edit(page);
     await edit.focus();
-    await edit.fileInput.open();
-    await edit.fileInput.upload(FILE);
+    await edit.fileInput.dropzoneUpload(FILE);
     await expect(edit.downloadBtn).toBeVisible();
-    await edit.fileInput.remove();
-    await expect(edit.downloadBtn).not.toBeVisible();
-    await expect(edit.placeholder).toBeVisible();
+    await expect(edit.fileInput.dropzone).not.toBeVisible();
+    // File row only renders when file-key (assets.url) is set —
+    // proves onUpload mapped the storage key, not just publicUrl.
+    await edit.fileInput.expectFile('test-file.txt');
   });
 });
 
@@ -62,7 +56,49 @@ test.describe('When file is set', () => {
   test('Shows download button', async ({ page }) => {
     const edit = new Edit(page);
     await expect(edit.downloadBtn).toBeVisible();
-    await expect(edit.placeholder).not.toBeVisible();
+    await expect(edit.downloadBtn).toContainText('Download file');
+    await expect(edit.fileInput.dropzone).not.toBeVisible();
+  });
+
+  test.describe('Download name after URL import', () => {
+    test.beforeEach(async ({ page }) => {
+      await page.route('https://example.com/**', (route) =>
+        route.fulfill({ body: 'content', contentType: 'text/plain' }),
+      );
+    });
+
+    test('Uses the title entered with the URL', async ({ page }) => {
+      const edit = new Edit(page);
+      await edit.focus();
+      await edit.fileInput.replace();
+      await edit.fileInput.importUrl(OTHER_FILE_URL, 'syllabus.txt');
+      await edit.fileInput.expectFile('syllabus.txt');
+      await page.reload({ waitUntil: 'networkidle' });
+      const download = page.waitForEvent('download');
+      await edit.downloadBtn.click();
+      expect((await download).suggestedFilename()).toBe('syllabus.txt');
+    });
+
+    test('Falls back to the URL file name without a title', async ({
+      page,
+    }) => {
+      const edit = new Edit(page);
+      await edit.focus();
+      await edit.fileInput.replace();
+      await edit.fileInput.importUrl(OTHER_FILE_URL);
+      await edit.fileInput.expectFile('other.txt');
+      const download = page.waitForEvent('download');
+      await edit.downloadBtn.click();
+      expect((await download).suggestedFilename()).toBe('other.txt');
+    });
+  });
+
+  test('Can remove file', async ({ page }) => {
+    const edit = new Edit(page);
+    await edit.focus();
+    await edit.fileInput.removeFromRow();
+    await expect(edit.downloadBtn).not.toBeVisible();
+    await expect(edit.fileInput.dropzone).toBeVisible();
   });
 
   test('Can set a custom label', async ({ page }) => {
@@ -77,17 +113,16 @@ test.describe('When file is set', () => {
 });
 
 test.describe('Readonly mode', () => {
-  test('Hides upload prompt when empty', async ({ page }) => {
+  test('Shows placeholder instead of dropzone when empty', async ({ page }) => {
     const edit = new Edit(page);
     await edit.setReadonly();
-    await edit.focus();
     await expect(edit.placeholder).toBeVisible();
-    await expect(
-      edit.el.getByText('Use toolbar to upload the file'),
-    ).not.toBeVisible();
+    await expect(edit.fileInput.dropzone).not.toBeVisible();
   });
 
-  test('Keeps download button visible when set', async ({ page }) => {
+  test('Keeps download button visible and hides file actions when set', async ({
+    page,
+  }) => {
     await elementClient.update(ELEMENT_ID, {
       url: FILE_URL,
       name: 'test.txt',
@@ -96,6 +131,8 @@ test.describe('Readonly mode', () => {
     await page.reload({ waitUntil: 'networkidle' });
     const edit = new Edit(page);
     await edit.setReadonly();
+    await edit.focus();
     await expect(edit.downloadBtn).toBeVisible();
+    await expect(edit.fileInput.replaceBtn).not.toBeVisible();
   });
 });
