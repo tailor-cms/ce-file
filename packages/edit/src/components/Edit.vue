@@ -1,30 +1,45 @@
 <template>
-  <div class="tce-file">
+  <div class="tce-file text-left">
     <TailorElementPlaceholder
-      v-if="!element.data.url"
-      :is-disabled="isReadonly"
-      :is-focused="isFocused"
+      v-if="!element.data.url && isReadonly"
       :name="`${manifest.name} component`"
-      active-icon="mdi-arrow-up"
-      active-placeholder="Use toolbar to upload the file"
       icon="mdi-file-upload"
+      is-readonly
     />
-    <div v-else class="text-center">
-      <VBtn
-        color="secondary"
-        prepend-icon="mdi-file-download"
-        variant="tonal"
-        @click="downloadFile"
-      >
-        {{ element.data.label || 'Download file' }}
-      </VBtn>
-    </div>
+    <TailorFileInput
+      v-else
+      :allowed-extensions="EXTENSIONS"
+      :file-key="element.data.assets?.url || element.data.url"
+      :file-name="element.data.name || undefined"
+      :public-url="element.data.url"
+      :readonly="isReadonly"
+      :show-actions="isFocused"
+      mode="dropzone"
+      allow-url-source
+      @delete="onDelete"
+      @input="save"
+      @upload="save"
+    >
+      <div class="text-center my-3">
+        <VBtn
+          color="secondary"
+          prepend-icon="mdi-download"
+          size="large"
+          variant="tonal"
+          @click="downloadFile"
+        >
+          {{ element.data.label || 'Download file' }}
+        </VBtn>
+      </div>
+    </TailorFileInput>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { Element } from '@tailor-cms/ce-file-manifest';
+import type { Element, ElementData } from '@tailor-cms/ce-file-manifest';
 import manifest from '@tailor-cms/ce-file-manifest';
+
+const EXTENSIONS: string[] = [];
 
 const props = defineProps<{
   element: Element;
@@ -32,6 +47,7 @@ const props = defineProps<{
   isFocused: boolean;
   isReadonly: boolean;
 }>();
+const emit = defineEmits<{ save: [data: ElementData] }>();
 
 const downloadFile = async () => {
   const { element } = props;
@@ -48,10 +64,20 @@ const downloadFile = async () => {
   link.click();
   document.body.removeChild(link);
 };
-</script>
 
-<style lang="scss" scoped>
-.tce-file {
-  text-align: left;
-}
-</style>
+const save = (payload: Record<string, any> | null) => {
+  if (!payload) return;
+  const { url, publicUrl, name } = payload;
+  const assets = { url };
+  emit('save', {
+    ...props.element.data,
+    url: publicUrl ?? url,
+    name: name || null,
+    assets,
+  });
+};
+
+const onDelete = () => {
+  emit('save', { ...props.element.data, url: null, name: null, assets: {} });
+};
+</script>
